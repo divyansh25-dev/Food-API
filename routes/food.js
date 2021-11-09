@@ -34,12 +34,23 @@ res.json(res.gname);
       desc: req.body.desc,
       link : req.body.link
     })
+
     try {
-      const nfpa = await fpa.save()
-      res.status(201).json(nfpa)
+    const p = await Fpage.find({name : req.body.name});
+    if(p==req.body.name)
+       {
+        const nfpa = await fpa.save()
+        res.status(201).json(nfpa)
+       } 
+       else{
+           return res.json({message:'User already exists'});
+       }
+       
     } catch (err) {
       res.status(400).json({ message: err.message })
     }
+
+ 
   })
 
   
